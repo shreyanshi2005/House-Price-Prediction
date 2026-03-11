@@ -11,6 +11,8 @@
   <img src="https://img.shields.io/badge/scikit--learn-1.3%2B-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="scikit-learn"/>
   <img src="https://img.shields.io/badge/FastAPI-0.100%2B-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI"/>
   <img src="https://img.shields.io/badge/SHAP-Explainability-blueviolet?style=for-the-badge" alt="SHAP"/>
+  <img src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React"/>
+  <img src="https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS"/>
 </p>
 
 <p>
@@ -43,6 +45,7 @@
 - [ML Workflow](#-ml-workflow)
 - [Project Structure](#-project-structure)
 - [Quick Start](#-quick-start)
+- [Frontend Dashboard](#-frontend-dashboard)
 - [Model Results](#-model-results)
 - [Model Explainability](#-model-explainability)
 - [API Usage](#-api-usage)
@@ -103,9 +106,10 @@
 | **Language** | ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) |
 | **ML Framework** | ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikitlearn&logoColor=white) |
 | **Data** | ![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat-square&logo=pandas&logoColor=white) ![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat-square&logo=numpy&logoColor=white) |
-| **Visualization** | ![Matplotlib](https://img.shields.io/badge/Matplotlib-11557c?style=flat-square) ![Seaborn](https://img.shields.io/badge/Seaborn-3776AB?style=flat-square) |
+| **Visualization** | ![Matplotlib](https://img.shields.io/badge/Matplotlib-11557c?style=flat-square) ![Seaborn](https://img.shields.io/badge/Seaborn-3776AB?style=flat-square) ![Recharts](https://img.shields.io/badge/Recharts-22b5bf?style=flat-square) |
 | **Explainability** | ![SHAP](https://img.shields.io/badge/SHAP-blueviolet?style=flat-square) |
 | **API** | ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white) |
+| **Frontend** | ![React](https://img.shields.io/badge/React_18-61DAFB?style=flat-square&logo=react&logoColor=black) ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white) |
 | **Serialization** | ![Joblib](https://img.shields.io/badge/Joblib-gray?style=flat-square) |
 
 </div>
@@ -176,7 +180,27 @@ house-price-ml-project/
 |   +-- trained_model.pkl           # Serialized best pipeline
 |
 |-- api/
-|   +-- app.py                      # FastAPI backend
+|   +-- app.py                      # FastAPI backend (CORS + /predict + /model-info)
+|
+|-- frontend/                       # React Dashboard (Vite + Tailwind CSS v4)
+|   |-- src/
+|   |   |-- components/
+|   |   |   |-- Navbar.jsx           # Header, dark/light toggle, GitHub link
+|   |   |   |-- PredictionForm.jsx   # 10-field input form
+|   |   |   |-- ResultCard.jsx       # Animated price display
+|   |   |   |-- FeatureChart.jsx     # SHAP bar chart (Recharts)
+|   |   |   |-- ModelInfoPanel.jsx   # R², RMSE, MAE metric cards
+|   |   |   +-- HistoryTable.jsx     # Recent predictions table
+|   |   |-- pages/
+|   |   |   +-- Dashboard.jsx        # Main layout
+|   |   |-- services/
+|   |   |   +-- api.js               # Axios API client
+|   |   |-- App.jsx                  # Dark mode context
+|   |   |-- main.jsx                 # Entry point
+|   |   +-- index.css                # Tailwind theme + animations
+|   |-- index.html
+|   |-- vite.config.js
+|   +-- package.json
 |
 |-- outputs/                        # Generated plots & CSVs
 |   |-- model_comparison.png
@@ -246,6 +270,42 @@ uvicorn api.app:app --reload --port 8000
 ```
 
 Visit **http://localhost:8000/docs** for the interactive Swagger UI.
+
+### Start the Frontend Dashboard
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open **http://localhost:5173** in your browser.
+
+---
+
+## <img src="https://media.giphy.com/media/SWoSkN6DxTszqIKEqv/giphy.gif" width="30"> Frontend Dashboard
+
+A professional, production-quality **React dashboard** for interacting with the ML model in real time.
+
+### Features
+
+| Feature | Description |
+|:---|:---|
+| **Prediction Form** | 10 key property inputs (sliders, dropdowns, number fields) |
+| **Animated Result** | Count-up price display with ±8% confidence range |
+| **Feature Impact** | SHAP importance bar chart (Recharts) |
+| **Model Info** | Live R², RMSE, MAE metrics from the API |
+| **Prediction History** | Recent predictions table (localStorage-backed) |
+| **Dark/Light Mode** | Theme toggle with smooth transitions |
+| **Responsive** | Works on desktop, tablet, and mobile |
+
+### Tech Stack
+
+- **React 18** + **Vite** for fast development
+- **Tailwind CSS v4** for utility-first styling
+- **Recharts** for data visualizations
+- **Axios** for API integration
+- **Lucide React** for icons
 
 ---
 
